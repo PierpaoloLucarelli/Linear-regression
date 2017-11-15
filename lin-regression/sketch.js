@@ -13,6 +13,7 @@ var point2;
 function setup() {
   // put setup code here
   createCanvas(1000,1000);
+  initVals();
   linearRegression();
 }
 
@@ -29,7 +30,6 @@ function draw() {
   stroke(255);
   strokeWeight(4);
   line(point1[0], -point1[1], point2[0], -point2[1])
-  //randomise();
 }
 
 function drawGraphLines(len){
@@ -61,6 +61,12 @@ function linearRegression(){
 }
 
 function corr(){
+	var top = (n * xy) - (sumX * sumY);
+	var bottom = Math.sqrt(n * xsq - (sumX**2)) * Math.sqrt(n * ysq - (sumY**2));
+	return top / bottom;
+}
+
+function initVals(){
 	for(var i = 0 ; i < x.length ; i++){
 		sumX += x[i];
 		sumY += y[i];
@@ -68,9 +74,6 @@ function corr(){
 		ysq += y[i] ** 2;
 		xy += x[i]*y[i];
 	}
-	var top = (n * xy) - (sumX * sumY);
-	var bottom = Math.sqrt(n * xsq - (sumX**2)) * Math.sqrt(n * ysq - (sumY**2));
-	return top / bottom;
 }
 
 function slope(){
@@ -105,13 +108,5 @@ function stdDevY(){
 	}
 	return Math.sqrt(sum/n-1);
 }
-
-function randomise(){
-	for(var i = 0 ; i < x.length ; i++){
-		x[i] = x[i] + random(-x[i],x[i]);
-		y[i] = y[i] + random(-y[i],y[i]);
-	}
-}
-
 
 
