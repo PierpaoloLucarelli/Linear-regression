@@ -75,9 +75,9 @@ function corr(){
 
 function slope(){
 	var r = corr();
-	var meanY = sumY/n;
-	var meanX = sumX/n;
-	return r * (meanY / meanX);
+	var sY = stdDevX();
+	var sX = stdDevY();
+	return r * (sY / sX);
 }
 
 function intercept(b){
@@ -86,6 +86,24 @@ function intercept(b){
 
 function getPoint(x,a,b){
 	return a + b * x;
+}
+
+function stdDevX(){
+	var sum = 0;
+	var meanX = sumX / n;
+	for(var i = 0 ; i < x.length ; i++){
+		sum += (x[i] - meanX) ** 2;
+	}
+	return Math.sqrt(sum/n-1);
+}
+
+function stdDevY(){
+	var sum = 0;
+	var meanY = sumY / n;
+	for(var i = 0 ; i < x.length ; i++){
+		sum += (x[i] - meanY) ** 2;
+	}
+	return Math.sqrt(sum/n-1);
 }
 
 function randomise(){
